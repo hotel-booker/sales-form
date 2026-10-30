@@ -7,429 +7,197 @@
   <meta name="robots" content="noindex, nofollow" />
   <title>Sales Search Request</title>
   <style>
-    * {
-      box-sizing: border-box
-    }
+    * { box-sizing: border-box }
 
     :root {
-      --bg: #0b0e1a;
-      --card: #141830;
-      --card2: #1b2040;
-      --line: #272d52;
-      --txt: #e9edff;
-      --mut: #8e97c0;
-      --acc: #4f8cff;
-      --acc2: #8b5cf6;
-      --ok: #22c55e;
-      --err: #f43f5e;
+      --bg: #0b0e1a; --card: #141830; --card2: #1b2040; --line: #272d52;
+      --txt: #e9edff; --mut: #8e97c0; --acc: #4f8cff; --acc2: #8b5cf6;
+      --ok: #22c55e; --err: #f43f5e;
     }
 
     body {
-      margin: 0;
-      padding: 28px 16px 64px;
-      min-height: 100vh;
+      margin: 0; padding: 28px 16px 64px; min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
       color: var(--txt);
       background: radial-gradient(900px 520px at 50% -15%, #1e2450 0%, var(--bg) 55%) fixed;
       -webkit-font-smoothing: antialiased;
     }
 
-    .wrap {
-      max-width: 640px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 16px
-    }
+    .wrap { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px }
 
-    .hero {
-      text-align: center;
-      margin-bottom: 2px
-    }
-
-    .hero .logo {
-      font-size: 34px;
-      line-height: 1
-    }
-
-    .hero h1 {
-      font-size: 22px;
-      margin: 8px 0 6px;
-      letter-spacing: -.3px
-    }
-
-    .hero p {
-      margin: 0;
-      color: var(--mut);
-      font-size: 13.5px;
-      line-height: 1.5
-    }
+    .hero { text-align: center; margin-bottom: 2px }
+    .hero .logo { font-size: 34px; line-height: 1 }
+    .hero h1 { font-size: 22px; margin: 8px 0 6px; letter-spacing: -.3px }
+    .hero p { margin: 0; color: var(--mut); font-size: 13.5px; line-height: 1.5 }
 
     .panel {
       background: linear-gradient(180deg, var(--card2), var(--card));
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 18px;
+      border: 1px solid var(--line); border-radius: 16px; padding: 18px;
       box-shadow: 0 14px 34px rgba(0, 0, 0, .38);
     }
 
-    form.panel {
-      display: flex;
-      flex-direction: column;
-      gap: 14px
-    }
+    form.panel { display: flex; flex-direction: column; gap: 14px }
 
     label {
-      display: block;
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--mut);
-      margin-bottom: 6px;
-      letter-spacing: .6px;
-      text-transform: uppercase
+      display: block; font-size: 11.5px; font-weight: 700; color: var(--mut);
+      margin-bottom: 6px; letter-spacing: .6px; text-transform: uppercase
     }
 
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 12px 13px;
-      border-radius: 11px;
-      border: 1px solid var(--line);
-      background: #0e1226;
-      color: var(--txt);
-      font-size: 14.5px;
-      font-family: inherit;
-      outline: none;
+    input, select, textarea {
+      width: 100%; padding: 12px 13px; border-radius: 11px;
+      border: 1px solid var(--line); background: #0e1226; color: var(--txt);
+      font-size: 14.5px; font-family: inherit; outline: none;
       transition: border-color .15s, box-shadow .15s;
     }
 
     select {
       appearance: none;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238e97c0' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
+      background-repeat: no-repeat; background-position: right 14px center;
       padding-right: 36px
     }
 
-    input::placeholder,
-    textarea::placeholder {
-      color: #5b6488
+    input::placeholder, textarea::placeholder { color: #5b6488 }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--acc); box-shadow: 0 0 0 3px rgba(79, 140, 255, .16)
     }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--acc);
-      box-shadow: 0 0 0 3px rgba(79, 140, 255, .16)
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 70px
-    }
-
-    input[type=date] {
-      color-scheme: dark
-    }
+    textarea { resize: vertical; min-height: 70px }
+    input[type=date] { color-scheme: dark }
 
     input[type=number]::-webkit-outer-spin-button,
-    input[type=number]::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0
-    }
+    input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0 }
+    input[type=number] { -moz-appearance: textfield }
 
-    input[type=number] {
-      -moz-appearance: textfield
-    }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
 
-    .grid2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 2px
-    }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2px }
 
     .btn {
-      border: 1px solid var(--line);
-      background: #1a1f3d;
-      color: var(--txt);
-      padding: 11px 14px;
-      border-radius: 11px;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: .15s;
-      white-space: nowrap;
+      border: 1px solid var(--line); background: #1a1f3d; color: var(--txt);
+      padding: 11px 14px; border-radius: 11px; font-size: 14px; font-weight: 600;
+      font-family: inherit; cursor: pointer; transition: .15s; white-space: nowrap;
     }
-
-    .btn:hover {
-      background: #222a52
-    }
+    .btn:hover { background: #222a52 }
 
     .btn.primary {
-      flex: 1 1 100%;
-      border: none;
-      padding: 15px 18px;
-      font-size: 15px;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--acc), var(--acc2));
-      color: #fff;
+      flex: 1 1 100%; border: none; padding: 15px 18px; font-size: 15px; font-weight: 800;
+      background: linear-gradient(135deg, var(--acc), var(--acc2)); color: #fff;
       box-shadow: 0 10px 24px rgba(79, 140, 255, .28);
     }
+    .btn.primary:hover { filter: brightness(1.07) }
+    .btn.primary:disabled { opacity: .6; cursor: progress; filter: grayscale(.2) }
 
-    .btn.primary:hover {
-      filter: brightness(1.07)
-    }
+    .btn.tiny { padding: 6px 10px; font-size: 12px; border-radius: 8px }
+    .btn.danger { color: #ffb3c1; border-color: rgba(244, 63, 94, .35) }
+    .btn.danger:hover { background: rgba(244, 63, 94, .12) }
 
-    .btn.primary:disabled {
-      opacity: .6;
-      cursor: progress;
-      filter: grayscale(.2)
-    }
-
-    .btn.tiny {
-      padding: 6px 10px;
-      font-size: 12px;
-      border-radius: 8px
-    }
-
-    .btn.danger {
-      color: #ffb3c1;
-      border-color: rgba(244, 63, 94, .35)
-    }
-
-    .btn.danger:hover {
-      background: rgba(244, 63, 94, .12)
-    }
-
-    .field-note {
-      font-size: 11.5px;
-      color: var(--mut);
-      margin-top: 5px;
-      line-height: 1.5
-    }
+    .field-note { font-size: 11.5px; color: var(--mut); margin-top: 5px; line-height: 1.5 }
 
     /* rooms */
-    .rooms {
-      display: flex;
-      flex-direction: column;
-      gap: 12px
-    }
+    .rooms { display: flex; flex-direction: column; gap: 12px }
 
     .room {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #0e1226;
-      padding: 14px;
+      border: 1px solid var(--line); border-radius: 12px;
+      background: #0e1226; padding: 14px;
     }
 
     .room-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 12px;
     }
 
     .room-title {
-      font-size: 11.5px;
-      font-weight: 800;
-      color: var(--mut);
-      letter-spacing: .7px;
-      text-transform: uppercase;
+      font-size: 11.5px; font-weight: 800; color: var(--mut);
+      letter-spacing: .7px; text-transform: uppercase;
     }
 
     .add-room {
-      border: 1px dashed var(--line);
-      background: transparent;
-      color: var(--mut);
-      padding: 11px;
-      border-radius: 11px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: .15s;
-      width: 100%;
-      margin-top: 10px;
+      border: 1px dashed var(--line); background: transparent; color: var(--mut);
+      padding: 11px; border-radius: 11px; font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: .15s;
+      width: 100%; margin-top: 10px;
     }
-
     .add-room:hover {
-      color: var(--txt);
-      border-color: var(--acc);
-      background: rgba(79, 140, 255, .06)
+      color: var(--txt); border-color: var(--acc); background: rgba(79, 140, 255, .06)
     }
 
     /* children */
-    .children-block {
-      margin-top: 12px
-    }
+    .children-block { margin-top: 12px }
 
     .children-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 8px;
     }
-
     .children-head .lbl {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--mut);
-      letter-spacing: .6px;
-      text-transform: uppercase;
+      font-size: 11.5px; font-weight: 700; color: var(--mut);
+      letter-spacing: .6px; text-transform: uppercase;
     }
 
-    .children {
-      display: flex;
-      flex-direction: column;
-      gap: 8px
-    }
+    .children { display: flex; flex-direction: column; gap: 8px }
 
     .child-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: #0a0d1e;
-      border: 1px solid #1c2244;
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border-radius: 10px;
+      background: #0a0d1e; border: 1px solid #1c2244;
     }
-
     .child-row .idx {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--mut);
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      min-width: 52px;
+      font-size: 11px; font-weight: 700; color: var(--mut);
+      letter-spacing: .5px; text-transform: uppercase; min-width: 52px;
     }
-
     .child-row input {
-      flex: 1;
-      padding: 8px 10px;
-      font-size: 13.5px;
-      border-radius: 8px;
-      background: #0e1226;
+      flex: 1; padding: 8px 10px; font-size: 13.5px;
+      border-radius: 8px; background: #0e1226;
     }
-
-    .child-row .btn.tiny {
-      padding: 6px 9px
-    }
+    .child-row .btn.tiny { padding: 6px 9px }
 
     .children-empty {
-      font-size: 12px;
-      color: #5b6488;
-      font-style: italic;
-      padding: 6px 2px;
+      font-size: 12px; color: #5b6488; font-style: italic; padding: 6px 2px;
     }
 
     .add-child {
-      margin-top: 8px;
-      padding: 8px 12px;
-      border-radius: 9px;
-      font-size: 12.5px;
-      font-weight: 700;
-      border: 1px dashed var(--line);
-      background: transparent;
-      color: #a8b2dd;
-      cursor: pointer;
-      font-family: inherit;
-      transition: .15s;
+      margin-top: 8px; padding: 8px 12px; border-radius: 9px;
+      font-size: 12.5px; font-weight: 700;
+      border: 1px dashed var(--line); background: transparent; color: #a8b2dd;
+      cursor: pointer; font-family: inherit; transition: .15s;
     }
-
     .add-child:hover {
-      color: #fff;
-      border-color: var(--acc);
-      background: rgba(79, 140, 255, .08)
+      color: #fff; border-color: var(--acc); background: rgba(79, 140, 255, .08)
     }
 
     /* filters */
-    .filters {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px
-    }
-
-    .check-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px
-    }
+    .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 14px }
+    .check-row { display: flex; flex-wrap: wrap; gap: 8px }
 
     .chk {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #0e1226;
-      font-size: 13px;
-      cursor: pointer;
-      user-select: none;
-      transition: .15s;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px;
+      background: #0e1226; font-size: 13px; cursor: pointer;
+      user-select: none; transition: .15s;
     }
-
-    .chk:hover {
-      border-color: #3a4270
-    }
-
+    .chk:hover { border-color: #3a4270 }
     .chk input {
-      width: auto;
-      padding: 0;
-      margin: 0;
-      accent-color: var(--acc);
-      cursor: pointer;
-      background: transparent;
-      border: none;
-      flex: 0 0 auto;
+      width: auto; padding: 0; margin: 0; accent-color: var(--acc);
+      cursor: pointer; background: transparent; border: none; flex: 0 0 auto;
     }
-
-    .chk input:focus {
-      box-shadow: none
-    }
-
-    .chk.on {
-      border-color: var(--acc);
-      background: rgba(79, 140, 255, .12);
-      color: #fff
-    }
+    .chk input:focus { box-shadow: none }
+    .chk.on { border-color: var(--acc); background: rgba(79, 140, 255, .12); color: #fff }
 
     @media (max-width:480px) {
-      .filters {
-        grid-template-columns: 1fr
-      }
+      .filters { grid-template-columns: 1fr }
     }
 
     .status {
-      border-radius: 12px;
-      padding: 14px 16px;
-      font-size: 14px;
-      line-height: 1.55;
-      border: 1px solid var(--line);
-      background: #141830;
-      word-break: break-word;
-      text-align: center;
+      border-radius: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.55;
+      border: 1px solid var(--line); background: #141830;
+      word-break: break-word; text-align: center;
     }
-
     .status.ok {
-      border-color: rgba(34, 197, 94, .45);
-      background: rgba(34, 197, 94, .08);
-      color: #a7f3c4
+      border-color: rgba(34, 197, 94, .45); background: rgba(34, 197, 94, .08); color: #a7f3c4
     }
-
     .status.err {
-      border-color: rgba(244, 63, 94, .45);
-      background: rgba(244, 63, 94, .08);
-      color: #ffb3c1
+      border-color: rgba(244, 63, 94, .45); background: rgba(244, 63, 94, .08); color: #ffb3c1
     }
   </style>
 </head>
@@ -440,7 +208,7 @@
     <header class="hero">
       <div class="logo">🇪🇬</div>
       <h1>Sales Search Request</h1>
-      <p>Fill in the stay details and submit. Your request will be dispatched to the pricing team.</p>
+      <p>Fill in the stay details and submit. WhatsApp will open with the message ready — choose the group and send.</p>
     </header>
 
     <!-- ============ MAIN FORM ============ -->
@@ -496,7 +264,7 @@
       </div>
 
       <div class="actions">
-        <button type="submit" class="btn primary" id="sendBtn">Submit Search Request</button>
+        <button type="submit" class="btn primary" id="sendBtn">Open WhatsApp with Request</button>
       </div>
     </form>
 
@@ -505,47 +273,44 @@
   </div>
 
   <script>
-
-    const WORKER_URL = "https://tg-proxy.hotel-booker-manager.workers.dev/";
-
     /* =====================================================================
        DATA
        ===================================================================== */
     const CITIES = [
-      { name: "Cairo", slug: "cairo" },
-      { name: "Giza", slug: "giza" },
-      { name: "Alexandria", slug: "alexandria" },
-      { name: "Luxor", slug: "luxor" },
-      { name: "Aswan", slug: "aswan" },
-      { name: "Abu Simbel", slug: "abu_simbel" },
-      { name: "Hurghada", slug: "hurghada" },
-      { name: "El Gouna", slug: "el_gouna" },
-      { name: "Soma Bay", slug: "soma_bay" },
-      { name: "Makadi Bay", slug: "makadi_bay" },
-      { name: "Sahl Hasheesh", slug: "sahl_hasheeh" },
-      { name: "Safaga", slug: "safaga" },
-      { name: "El Quseir", slug: "el_quseir" },
-      { name: "Marsa Alam", slug: "marsa_alam" },
-      { name: "Sharm El Sheikh", slug: "sharm_el_sheikh" },
-      { name: "Dahab", slug: "dahab" },
-      { name: "Nuweiba", slug: "nuweiba" },
-      { name: "Taba", slug: "taba" },
-      { name: "Ras Sedr", slug: "south_sinai_ras_sudr" },
-      { name: "Ain Sokhna", slug: "ain_sokhna" },
-      { name: "Suez", slug: "suez" },
-      { name: "Ismailia", slug: "ismailia" },
-      { name: "Port Said", slug: "port_said" },
-      { name: "El Alamein", slug: "el_'alamein" },
-      { name: "Marsa Matruh", slug: "matrouh_marsa_matruh" },
-      { name: "Siwa Oasis", slug: "siwa" },
-      { name: "Fayoum", slug: "fayoum" },
-      { name: "Beni Suef", slug: "beni_suef" },
-      { name: "Minya", slug: "minya" },
-      { name: "Asyut", slug: "asyut" },
-      { name: "Sohag", slug: "sohag" },
-      { name: "Qena", slug: "qena" },
-      { name: "Tanta", slug: "tanta" },
-      { name: "Mansoura", slug: "mansoura" }
+      { name: "Cairo" },
+      { name: "Giza" },
+      { name: "Alexandria" },
+      { name: "Luxor" },
+      { name: "Aswan" },
+      { name: "Abu Simbel" },
+      { name: "Hurghada" },
+      { name: "El Gouna" },
+      { name: "Soma Bay" },
+      { name: "Makadi Bay" },
+      { name: "Sahl Hasheesh" },
+      { name: "Safaga" },
+      { name: "El Quseir" },
+      { name: "Marsa Alam" },
+      { name: "Sharm El Sheikh" },
+      { name: "Dahab" },
+      { name: "Nuweiba" },
+      { name: "Taba" },
+      { name: "Ras Sedr" },
+      { name: "Ain Sokhna" },
+      { name: "Suez" },
+      { name: "Ismailia" },
+      { name: "Port Said" },
+      { name: "El Alamein" },
+      { name: "Marsa Matruh" },
+      { name: "Siwa Oasis" },
+      { name: "Fayoum" },
+      { name: "Beni Suef" },
+      { name: "Minya" },
+      { name: "Asyut" },
+      { name: "Sohag" },
+      { name: "Qena" },
+      { name: "Tanta" },
+      { name: "Mansoura" }
     ];
 
     const STARS = [
@@ -576,11 +341,6 @@
     const pretty = s => fromISO(s).toLocaleDateString("en-GB",
       { weekday: "short", day: "2-digit", month: "short", year: "numeric" });
 
-    const esc = s => String(s)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-    const padEnd = (s, n) => String(s).padEnd(n, " ");
-
     function setStatus(msg, type) {
       const el = $("status");
       el.hidden = false;
@@ -590,22 +350,17 @@
     }
     function clearStatus() { $("status").hidden = true; }
 
-    /* ===================== Send via Worker ===================== */
-    async function tgSend(text) {
-      const res = await fetch(WORKER_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text })
-      });
+    /* ===================== WhatsApp launcher ===================== */
+    function openWhatsApp(text) {
+      const encoded = encodeURIComponent(text);
+      const url = `https://wa.me/?text=${encoded}`;
 
-      let data = {};
-      try { data = await res.json(); } catch (e) { }
-
-      if (!res.ok || !data.ok) {
-        console.error("Send failed:", res.status, data);
-        throw new Error("send-failed");
+      // window.open from a click handler should not be blocked, but be safe
+      const win = window.open(url, "_blank");
+      if (!win) {
+        // popup blocked — navigate the current tab instead
+        window.location.href = url;
       }
-      return true;
     }
 
     /* ===================== ROOM BUILDER ===================== */
@@ -664,7 +419,7 @@
       row.className = "child-row";
       row.innerHTML = `
     <span class="idx"></span>
-    <input type="number" min="0" max="17" step="1" placeholder="Age (0-17)" value="${esc(String(age))}" data-age>
+    <input type="number" min="0" max="17" step="1" placeholder="Age (0-17)" value="${String(age)}" data-age>
     <button type="button" class="btn tiny danger" data-remove-child>X</button>
   `;
       const ageEl = row.querySelector("[data-age]");
@@ -741,7 +496,7 @@
       STARS.forEach(s => {
         const lbl = document.createElement("label");
         lbl.className = "chk" + (s.key === "" ? " on" : "");
-        lbl.innerHTML = `<input type="radio" name="starPick" value="${esc(s.key)}" ${s.key === "" ? "checked" : ""}> ${esc(s.label)}`;
+        lbl.innerHTML = `<input type="radio" name="starPick" value="${s.key}" ${s.key === "" ? "checked" : ""}> ${s.label}`;
         lbl.querySelector("input").addEventListener("change", () => syncRadioGroup("starPick"));
         $("starsRow").appendChild(lbl);
       });
@@ -749,7 +504,7 @@
       MEALS.forEach(m => {
         const lbl = document.createElement("label");
         lbl.className = "chk" + (m.key === "" ? " on" : "");
-        lbl.innerHTML = `<input type="radio" name="mealPick" value="${esc(m.key)}" ${m.key === "" ? "checked" : ""}> ${esc(m.label)}`;
+        lbl.innerHTML = `<input type="radio" name="mealPick" value="${m.key}" ${m.key === "" ? "checked" : ""}> ${m.label}`;
         lbl.querySelector("input").addEventListener("change", () => syncRadioGroup("mealPick"));
         $("mealsRow").appendChild(lbl);
       });
@@ -787,35 +542,27 @@
         renumberRooms();
       });
 
-      $("form").addEventListener("submit", async ev => {
+      $("form").addEventListener("submit", ev => {
         ev.preventDefault();
         clearStatus();
 
         let d;
-        try { d = collect(); } catch (e) { setStatus(esc(e.message), "err"); return; }
+        try { d = collect(); } catch (e) { setStatus(e.message, "err"); return; }
 
         localStorage.setItem(LS_SALES, d.salesName);
 
-        const btn = $("sendBtn");
-        const original = btn.textContent;
-        btn.disabled = true;
-        btn.textContent = "Sending…";
-
         try {
           const text = buildMessage(d);
-          await tgSend(text);
+          openWhatsApp(text);
 
-          setStatus("Search request sent successfully.", "ok");
+          setStatus(
+            "WhatsApp has been opened with your request prepared.<br>" +
+            "<b>Choose the group in WhatsApp and press send.</b>",
+            "ok"
+          );
           $("notes").value = "";
         } catch (err) {
-          if (err.message === "not-configured") {
-            setStatus("The service is not configured yet. Please contact your supervisor.", "err");
-          } else {
-            setStatus("Could not send the request. Please try again or contact your supervisor.", "err");
-          }
-        } finally {
-          btn.disabled = false;
-          btn.textContent = original;
+          setStatus("Could not open WhatsApp. Please try again or use the WhatsApp app directly.", "err");
         }
       });
     })();
@@ -847,7 +594,7 @@
       return { salesName, city, checkin, checkout, nights, rooms, star, meal, notes };
     }
 
-    /* ===================== message builder ===================== */
+    /* ===================== message builder (WhatsApp format) ===================== */
     function totals(d) {
       return d.rooms.reduce((a, r) => {
         a.adults += r.adults;
@@ -865,28 +612,29 @@
       });
       const t = totals(d);
 
-      const W = 14;
-      const row = (label, value) => "  " + padEnd(label, W) + value;
-
       const L = [];
 
-      L.push("SALES AGENT");
-      L.push("  " + d.salesName);
+      L.push("*NEW SEARCH REQUEST*");
+      L.push("_" + stamp + "_");
       L.push("");
 
-      L.push("STAY");
-      L.push(row("City", d.city.name));
-      L.push(row("Check-in", pretty(d.checkin)));
-      L.push(row("Check-out", pretty(d.checkout)));
-      L.push(row("Nights", d.nights));
-      L.push(row("Rooms", d.rooms.length));
+      L.push("*SALES AGENT*");
+      L.push(d.salesName);
       L.push("");
 
-      L.push("GUESTS");
+      L.push("*STAY*");
+      L.push("City: " + d.city.name);
+      L.push("Check-in: " + pretty(d.checkin));
+      L.push("Check-out: " + pretty(d.checkout));
+      L.push("Nights: " + d.nights);
+      L.push("Rooms: " + d.rooms.length);
+      L.push("");
+
+      L.push("*GUESTS*");
       const totalLine =
         `${t.adults} adult${t.adults > 1 ? "s" : ""}` +
         (t.children ? ` + ${t.children} child${t.children > 1 ? "ren" : ""}` : "");
-      L.push(row("Total", totalLine));
+      L.push("Total: " + totalLine);
 
       d.rooms.forEach((r, i) => {
         const parts = [`${r.adults} adult${r.adults > 1 ? "s" : ""}`];
@@ -896,29 +644,22 @@
             `(age${r.ages.length > 1 ? "s" : ""} ${r.ages.join(", ")})`
           );
         }
-        L.push(row("Room " + (i + 1), parts.join(" + ")));
+        L.push("  Room " + (i + 1) + ": " + parts.join(" + "));
       });
       L.push("");
 
-      L.push("PREFERENCES");
-      if (d.star) L.push(row("Star Rating", STAR_LABEL[d.star] || d.star));
-      if (d.meal) L.push(row("Meal Plan", MEAL_LABEL[d.meal] || d.meal));
-      if (!d.star && !d.meal) L.push("  No filters applied");
+      L.push("*PREFERENCES*");
+      if (d.star) L.push("Star Rating: " + (STAR_LABEL[d.star] || d.star));
+      if (d.meal) L.push("Meal Plan: " + (MEAL_LABEL[d.meal] || d.meal));
+      if (!d.star && !d.meal) L.push("No filters applied");
 
       if (d.notes) {
         L.push("");
-        L.push("NOTES");
-        L.push("  " + d.notes);
+        L.push("*NOTES*");
+        L.push(d.notes);
       }
 
-      const body = L.join("\n");
-
-      return [
-        "<b>NEW SEARCH REQUEST</b>",
-        "<i>" + stamp + "</i>",
-        "",
-        "<pre>" + esc(body) + "</pre>"
-      ].join("\n");
+      return L.join("\n");
     }
   </script>
 </body>
